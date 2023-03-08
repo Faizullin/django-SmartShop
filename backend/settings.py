@@ -57,6 +57,7 @@ import os
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGIN_REDIRECT_URL = "dashboard:home"  # Route defined in home/urls.py
 LOGOUT_REDIRECT_URL = "dashboard:home"  # Route defined in home/urls.py
+LOGIN_URL = 'auth:login'
 TEMPLATE_DIR = os.path.join(CORE_DIR, "..\\templates") 
 print("TEMPLATE_DIR",TEMPLATE_DIR)
 TEMPLATE_DIR="templates"

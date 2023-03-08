@@ -2,3 +2,45 @@
 <script src="/static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/assets/js/pcoded.min.js"></script>
 <script src="/static/assets/js/dark-mode.js"></script>
+<script>
+    function mainJLoaded() {
+        
+      var modal = $('#dashboard-form-modal');
+      var saveButton = $('#save-button');
+
+        console.log(saveButton,modal)
+      saveButton.click(function() {
+        console.log('click')
+        const form = $('#dashboard-form')
+        var url = form.attr('action');
+        var data = form.serialize();
+        $.post(url, data, (response) => {
+          if (response.success) {
+            modal.modal('hide');
+            location.reload();
+          } else {
+            
+            const form = $('#dashboard-form')
+            if(response.errors){
+              Object.entries(response.errors).forEach(([key,val]) => {
+                console.log("Error",key,val[0])
+              });
+            }
+            //form.html(response);
+          }
+        }
+      );
+      });
+    }
+    $(document).ready(mainJLoaded)
+</script>
+<style>
+    .error {
+        border: 1px solid red !important;
+    }
+
+    .error-text {
+        color: red !important;
+        font-size: 12px !important;
+    }
+  </style>

@@ -1,6 +1,8 @@
+from django import template
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
+from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 
 from SmartShop.models import *
@@ -8,39 +10,39 @@ from .forms import *
 
 
 @login_required()
-def shop_index(request):
-    shops = Shop.objects.all()
+def good_index(request):
+    goods = Good.objects.all()
     context = {
-        'segment': 'shop_index',
-        'shops': shops,
-        'form': ShopForm()
+        'segment': 'good_index',
+        'goods': goods,
+        'form': GoodForm()
     }
-    html_template = loader.get_template('dashboard/tables/shop/index.html')
+    html_template = loader.get_template('dashboard/tables/good/index.html')
     return HttpResponse(html_template.render(context, request))
 
 @login_required()
-def shop_create(request):
+def good_create(request):
     if request.method == 'POST':
-        form = ShopForm(request.POST)
+        form = GoodForm(request.POST)
         if form.is_valid():
             form.save()
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'success': False, 'errors': form.errors})
     else:
-        form = ShopForm()
-    return render(request, 'shop_form.html', {'form': form})
+        form = GoodForm()
+    return render(request, 'good_form.html', {'form': form})
 
 @login_required()
-def shop_edit(request, pk):
-    shop = get_object_or_404(Shop, pk=pk)
+def good_edit(request, pk):
+    good = get_object_or_404(Good, pk=pk)
     if request.method == 'POST':
-        form = ShopForm(request.POST, instance=shop)
+        form = GoodForm(request.POST, instance=good)
         if form.is_valid():
             form.save()
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'success': False, 'errors': form.errors})
     else:
-        form = ShopForm(instance=shop)
-    return render(request, 'shop_form.html', {'form': form})
+        form = GoodForm(instance=good)
+    return render(request, 'good_form.html', {'form': form})

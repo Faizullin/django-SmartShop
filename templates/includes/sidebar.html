@@ -26,12 +26,33 @@
                         <span class="pcoded-micon"><i class="feather icon-user"></i></span>
                             <span class="pcoded-mtext">Profile Page</span></a>
                 </li>
+
+
                 <li data-username="Shop Dashboard Page" 
                     class="nav-item {% if 'shop_index' in segment %} active {% endif %}">
                     <a href="{% url 'dashboard:shop_index' %}" class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-shop"></i></span>
                             <span class="pcoded-mtext">Shops</span></a>
-                </li>            
+                </li>
+                <li data-username="Shop Dashboard Page" 
+                    class="nav-item {% if 'actual_purchase_index' in segment %} active {% endif %}">
+                    <a href="{% url 'dashboard:actual_purchase_index' %}" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-shop"></i></span>
+                            <span class="pcoded-mtext">Actual Purchases</span></a>
+                </li>
+                <li data-username="Shop Dashboard Page" 
+                    class="nav-item {% if 'purchase_history_index' in segment %} active {% endif %}">
+                    <a href="{% url 'dashboard:purchase_history_index' %}" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-shop"></i></span>
+                            <span class="pcoded-mtext">Purchase History</span></a>
+                </li>
+                <li data-username="Shop Dashboard Page" 
+                    class="nav-item {% if 'good_index' in segment %} active {% endif %}">
+                    <a href="{% url 'dashboard:good_index' %}" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-shop"></i></span>
+                            <span class="pcoded-mtext">Goods</span></a>
+                </li>
+
                 <li class="nav-item pcoded-menu-caption">
                     <label>UI Element</label>
                 </li>
@@ -97,7 +118,7 @@
                 </li>
 
                 <li data-username="Disabled Menu" class="nav-item">
-                    <a href="{% url 'dashboard:pages' %}{% url 'auth:logout' %}" class="nav-link">
+                    <a href="{% url 'auth:logout' %}" class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Logout</span>
                     </a>
                 </li>

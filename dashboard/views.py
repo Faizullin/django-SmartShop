@@ -11,11 +11,9 @@ from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 
 from SmartShop.models import *
-from .forms import *
 
-LOGIN_URL = "/auth/login"
 
-@login_required(login_url=LOGIN_URL)
+@login_required()
 def index(request):
     context = {'segment': 'index'}
 
@@ -23,7 +21,7 @@ def index(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url=LOGIN_URL)
+@login_required()
 def pages(request):
     context = {}
     # All resource paths end in .html.
@@ -48,40 +46,3 @@ def pages(request):
         html_template = loader.get_template('dashboard/page-500.html')
         return HttpResponse(html_template.render(context, request))
 
-@login_required(login_url=LOGIN_URL)
-def shop_index(request):
-    shops = Shop.objects.all()
-    context = {
-        'segment': 'shop_index',
-        'shops': shops,
-        'form': ShopForm()
-    }
-    html_template = loader.get_template('dashboard/shop/index.html')
-    return HttpResponse(html_template.render(context, request))
-
-@login_required(login_url=LOGIN_URL)
-def shop_create(request):
-    if request.method == 'POST':
-        form = ShopForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'success': False, 'errors': form.errors})
-    else:
-        form = ShopForm()
-    return render(request, 'shop_form.html', {'form': form})
-
-@login_required(login_url=LOGIN_URL)
-def shop_edit(request, pk):
-    shop = get_object_or_404(Shop, pk=pk)
-    if request.method == 'POST':
-        form = ShopForm(request.POST, instance=shop)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'success': False, 'errors': form.errors})
-    else:
-        form = ShopForm(instance=shop)
-    return render(request, 'shop_form.html', {'form': form})

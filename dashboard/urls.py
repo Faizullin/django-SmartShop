@@ -3,19 +3,21 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from dashboard import views
  
 
 app_name = 'dashboard'
 
 urlpatterns = [
-    path('shop/', views.shop_index, name='shop_index'),
-    path('shop/create', views.shop_index, name='shop_create'),
-    path('shop/update/<int:pk>', views.shop_index, name='shop_edit'),
+    
     
     # The home page
     path('', views.index, name='home'),
+    path('',include('dashboard.tables.shop.urls')),
+    path('',include('dashboard.tables.actual_purchase.urls')),
+    path('',include('dashboard.tables.good.urls')),
+    path('',include('dashboard.tables.purchase_history.urls')),
 
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'), 

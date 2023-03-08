@@ -27,12 +27,6 @@ class SoftDeleteModel(models.Model):
 
 
 
-class Address(SoftDeleteModel):
-    street = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    zip_code = models.CharField(max_length=10)
-
 class Role(SoftDeleteModel):
     name = models.CharField(max_length=100)
 
@@ -40,11 +34,14 @@ class ShopData(SoftDeleteModel):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     open = models.BooleanField(default = False)
+    street = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=10)
 
 class Shop(SoftDeleteModel):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
     data = models.ForeignKey(ShopData, on_delete=models.CASCADE)
 
 
