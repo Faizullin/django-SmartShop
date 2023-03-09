@@ -27,8 +27,6 @@ class SoftDeleteModel(models.Model):
 
 
 
-class Role(SoftDeleteModel):
-    name = models.CharField(max_length=100)
 
 class ShopData(SoftDeleteModel):
     name = models.CharField(max_length=100)
@@ -61,6 +59,7 @@ class Purchase(SoftDeleteModel):
     goods = models.ForeignKey(Good, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     total_price = models.DecimalField(max_digits=8, decimal_places=2)
+    is_completed = models.BooleanField(default=False)
 
 
 def get_user_stories(user_id):

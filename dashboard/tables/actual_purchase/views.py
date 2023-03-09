@@ -11,7 +11,7 @@ from .forms import *
 
 @login_required()
 def actual_purchase_index(request):
-    actual_purchases = Purchase.objects.all()
+    actual_purchases = Purchase.objects.filter(is_completed=False)
     context = {
         'segment': 'actual_purchase_index',
         'actual_purchases': actual_purchases,

@@ -3,11 +3,13 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import render, get_object_or_404
 
+from dashboard.decorators import group_required
 from SmartShop.models import *
 from .forms import *
 
 
 @login_required()
+@group_required(['groupOwner'])
 def shop_index(request):
     shops = Shop.objects.all()
     context = {
@@ -19,6 +21,7 @@ def shop_index(request):
     return HttpResponse(html_template.render(context, request))
 
 @login_required()
+@group_required(['groupOwner'])
 def shop_create(request):
     if request.method == 'POST':
         form = ShopForm(request.POST)
@@ -32,6 +35,7 @@ def shop_create(request):
     return render(request, 'shop_form.html', {'form': form})
 
 @login_required()
+@group_required(['groupOwner'])
 def shop_edit(request, pk):
     shop = get_object_or_404(Shop, pk=pk)
     if request.method == 'POST':

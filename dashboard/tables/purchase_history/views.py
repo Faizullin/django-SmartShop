@@ -9,7 +9,7 @@ from .forms import *
 
 @login_required()
 def purchase_history_index(request):
-    purchase_historys = Purchase.objects.all()
+    purchase_historys = Purchase.objects.filter(is_completed=True)
     context = {
         'segment': 'purchase_history_index',
         'purchase_historys': purchase_historys,
