@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Shop,ShopData,User,Purchase,Role,Good,GoodType
+from .models import Shop,ShopData,User,Purchase,Good,GoodType
 
 
 def main_app(request):

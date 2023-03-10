@@ -52,6 +52,7 @@ class Good(SoftDeleteModel):
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     type = models.ForeignKey(GoodType, on_delete=models.CASCADE)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
 class Purchase(SoftDeleteModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from dashboard.decorators import group_required
 from SmartShop.models import *
@@ -24,7 +25,7 @@ def shop_index(request):
 @group_required(['groupOwner'])
 def shop_create(request):
     if request.method == 'POST':
-        form = ShopForm(request.POST)
+        form = ShopForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return JsonResponse({'success': True})
@@ -32,7 +33,7 @@ def shop_create(request):
             return JsonResponse({'success': False, 'errors': form.errors})
     else:
         form = ShopForm()
-    return render(request, 'shop_form.html', {'form': form})
+    return render(request, 'dashboard/tables/form_base.html', {'form': form})
 
 @login_required()
 @group_required(['groupOwner'])
@@ -47,4 +48,4 @@ def shop_edit(request, pk):
             return JsonResponse({'success': False, 'errors': form.errors})
     else:
         form = ShopForm(instance=shop)
-    return render(request, 'shop_form.html', {'form': form})
+    return render(request, 'dashboard/tables/form_base.html', {'form': form, 'edit_url': reverse('dashboard:shop_edit', kwargs={'pk': shop.pk}) })

@@ -61,7 +61,7 @@
                                                                 <td>{{ shop.address }}</td>
                                                                 <td>{{ shop.data }}</td>
                                                                 <td>
-                                                                    <button class="btn btn-primary edit-button" data-toggle="modal" data-target="#shop-modal" data-url="{% url 'dashboard:shop_edit' pk=shop.pk %}">Edit</button>
+                                                                    <button class="btn btn-primary edit-button" data-url="{% url 'dashboard:shop_edit' pk=shop.pk %}">Edit</button>
                                                                 </td>
                                                             </tr>
                                                         {% endfor %}
